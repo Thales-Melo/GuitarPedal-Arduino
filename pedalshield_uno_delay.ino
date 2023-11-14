@@ -1,9 +1,8 @@
-// CC-by-www.Electrosmash.com
 // Com base nos trabalhos anteriores da ElectroSmash.
 // pedalshield_uno_delay.ino lê o ADC, salva-o no array DelayBuffer[] e reproduz na saída PWM.
 // Pressionar o footswitch aumenta ou diminui o atraso usando um potenciômetro.
-
 // Definição dos recursos de hardware.
+
 #define LED 13
 #define FOOTSWITCH 12
 #define TOGGLE 2
