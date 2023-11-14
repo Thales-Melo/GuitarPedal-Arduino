@@ -28,6 +28,7 @@ void setup() {
   pinMode(FOOTSWITCH, INPUT_PULLUP);
   pinMode(TOGGLE, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
+  pinMode(POTENTIOMETER, INPUT_PULLUP);
 
   // Configuração do ADC
   ADMUX = 0x60; // Ajuste à esquerda, adc0, VCC interno

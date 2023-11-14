@@ -21,7 +21,7 @@ void setup() {
   // Configuração de IO
   pinMode(FOOTSWITCH, INPUT_PULLUP);
   pinMode(TOGGLE, INPUT_PULLUP);
-  pinMode(POTENTIOMETER, INPUT);  // Potenciômetro como entrada analógica
+  pinMode(POTENTIOMETER, INPUT_PULLUP);  // Potenciômetro como entrada analógica
   pinMode(LED, OUTPUT);
 
   // Configuração do ADC
