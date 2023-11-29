@@ -55,7 +55,7 @@ void processDelay() {
   if (digitalRead(FOOTSWITCH)) {
     digitalWrite(LED, HIGH);
 
-    delay_ADC_low = 0;
+    delay_ADC_low = ADCL;
     delay_ADC_high = ADCH;
 
     // Verificar primeiro se DelayBuffer já foi alocado p nao dar ruim
