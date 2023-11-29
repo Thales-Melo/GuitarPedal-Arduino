@@ -33,7 +33,8 @@ void loop() {
     if (effectOn) {
       effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
     }
-  } else {
+  }
+  else {
     digitalWrite(LED, LOW);
     effectOn = false;
   }
