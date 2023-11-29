@@ -36,7 +36,7 @@ void processDistortion() {
   if (digitalRead(FOOTSWITCH)) {
     digitalWrite(LED, HIGH);
 
-    distortion_ADC_low = 0;
+    distortion_ADC_low = ADCL;
     distortion_ADC_high = ADCH;
 
     int potValue = analogRead(POTENTIOMETER);
