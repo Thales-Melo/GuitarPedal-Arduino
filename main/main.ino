@@ -20,7 +20,6 @@ void setup() {
   pinMode(ENCODER_CLK, INPUT);
   pinMode(ENCODER_DT, INPUT);
   pinMode(ENCODER_SW, INPUT_PULLUP);
-  pinMode(LEVER_SWITCH, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(ENCODER_SW), handleEncoderSwitch, FALLING);
 
