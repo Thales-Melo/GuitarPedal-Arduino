@@ -13,7 +13,8 @@ static int delay_input, delay_vol_variable = 512;
 static int delay_counter = 0;
 static unsigned int delay_ADC_low, delay_ADC_high;
 
-#define MAX_DELAY 2000
+// #define MAX_DELAY 2000
+#define MAX_DELAY 1500
 byte* DelayBuffer = nullptr;
 unsigned int DelayCounter = 0;
 unsigned int Delay_Depth = 0;  // Inicializado no setupDelay
