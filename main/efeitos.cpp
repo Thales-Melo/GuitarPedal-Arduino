@@ -17,7 +17,7 @@ void setupEffects() {
 void switchEffect(int effect) {
   if (effect >= 0 && effect < NUM_EFFECTS) {
     destroyDelay();
-    setupEffects(); // Reinicia todos os efeitos
+    // setupEffects(); // Reinicia todos os efeitos
     effects[effect].setupEffect(); // Configura o efeito selecionado
   }
 }
