@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-#define NUM_EFFECTS 2  // Número total de efeitos (delay e distortion até então)
+#define NUM_EFFECTS 3  // Número total de efeitos (delay, distortion e octave até então)
 
 // Struct para armazenar informações sobre um efeito
 struct Effect {
