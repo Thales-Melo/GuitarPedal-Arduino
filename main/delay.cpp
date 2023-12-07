@@ -1,5 +1,4 @@
 #include "delay.h"
-#include "efeitos.h"
 
 #define LED 13
 #define FOOTSWITCH 12
@@ -78,7 +77,8 @@ void processDelay() {
       OCR1AL = ((delay_input + 0x8000) >> 8);
       OCR1BL = delay_input;
     }
-  } else {
+  }
+  else {
     digitalWrite(LED, LOW);
   }
 }
