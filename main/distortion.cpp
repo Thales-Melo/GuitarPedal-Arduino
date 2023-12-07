@@ -1,5 +1,4 @@
 #include "distortion.h"
-#include "efeitos.h"
 
 #define LED 13
 #define FOOTSWITCH 12
@@ -8,6 +7,8 @@
 #define PWM_FREQ 0x00FF
 #define PWM_MODE 0
 #define PWM_QTY 2
+
+#define MAX_DISTORTION 32768
 
 static int distortion_input, distortion_threshold = 6000; // Valor inicial ajustado por tentativa e erro (pedalshield test)
 static int distortion_counter = 0;
@@ -40,7 +41,7 @@ void processDistortion() {
     distortion_ADC_high = ADCH;
 
     int potValue = analogRead(POTENTIOMETER);
-    distortion_threshold = map(potValue, 0, 1023, 0, 32768);
+    distortion_threshold = map(potValue, 0, 1023, 0, MAX_DISTORTION);
 
     distortion_counter++;
     if (distortion_counter == 1000) {
@@ -56,7 +57,9 @@ void processDistortion() {
 
     OCR1AL = ((distortion_input + 0x8000) >> 8);
     OCR1BL = distortion_input;
-  } else {
+  }
+  
+  else {
     digitalWrite(LED, LOW);
   }
 }
