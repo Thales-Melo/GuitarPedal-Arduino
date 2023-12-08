@@ -2,7 +2,8 @@
 
 #define LED 13
 #define FOOTSWITCH 12
-#define POTENTIOMETER A0
+#define POTENTIOMETER A4
+#define TOGGLE 2
 
 #define PWM_FREQ 0x00FF
 #define PWM_MODE 0
@@ -21,7 +22,7 @@ unsigned int Delay_Depth = 0;  // Inicializado no setupDelay
 void setupDelay() {
   pinMode(FOOTSWITCH, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
-  pinMode(POTENTIOMETER, INPUT_PULLUP);
+  pinMode(POTENTIOMETER, INPUT);
 
   ADMUX = 0x60;
   ADCSRA = 0xe5;
@@ -41,6 +42,8 @@ void setupDelay() {
   
   // Alocação dinâmica do DelayBuffer
   DelayBuffer = (byte*)malloc(Delay_Depth * sizeof(byte));
+
+  Serial.println("SetupDelay");
 }
 
 void destroyDelay() {
@@ -52,10 +55,10 @@ void destroyDelay() {
 }
 
 void processDelay() {
-  if (digitalRead(FOOTSWITCH)) {
+  if (digitalRead(TOGGLE)) {
     digitalWrite(LED, HIGH);
-
-    delay_ADC_low = ADCL;
+    // Serial.println("delay");
+    delay_ADC_low = 0;
     delay_ADC_high = ADCH;
 
     // Verificar primeiro se DelayBuffer já foi alocado p nao dar ruim
@@ -67,12 +70,19 @@ void processDelay() {
         delay_counter = 0;
         int potValue = analogRead(POTENTIOMETER);
         Delay_Depth = map(potValue, 0, 1023, 0, MAX_DELAY);
+        Serial.print("Delay_Depth: ");
+        Serial.println(Delay_Depth);
         digitalWrite(LED, LOW);
       }
 
       DelayCounter++;
-      if (DelayCounter >= Delay_Depth) DelayCounter = 0;
+      if (DelayCounter >= Delay_Depth){
+        DelayCounter = 0; 
+        
+        Serial.print("DelayCounter: ");
+        Serial.println(DelayCounter);
 
+      } 
       delay_input = (((DelayBuffer[DelayCounter] << 8) | delay_ADC_low) + 0x8000) + (((delay_ADC_high << 8) | delay_ADC_low) + 0x8000);
       OCR1AL = ((delay_input + 0x8000) >> 8);
       OCR1BL = delay_input;
