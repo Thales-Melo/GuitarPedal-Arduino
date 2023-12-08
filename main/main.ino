@@ -3,11 +3,10 @@
 #define LED 13
 #define FOOTSWITCH 12
 #define TOGGLE 2
-#define POTENTIOMETER A0
+#define POTENTIOMETER A4
 #define ENCODER_CLK 3
 #define ENCODER_DT 4
 #define ENCODER_SW 5
-#define LEVER_SWITCH 6
 
 int selectedEffect = 0;
 bool effectOn = false;
