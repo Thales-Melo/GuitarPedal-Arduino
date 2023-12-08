@@ -2,7 +2,7 @@
 
 #define LED 13
 #define FOOTSWITCH 12
-#define POTENTIOMETER A0
+#define POTENTIOMETER A4
 
 #define PWM_FREQ 0x00FF
 #define PWM_MODE 0
@@ -18,7 +18,7 @@ static int octave_dist_variable;
 void setupOctave() {
   pinMode(FOOTSWITCH, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
-  pinMode(POTENTIOMETER, INPUT_PULLUP);
+  pinMode(POTENTIOMETER, INPUT);
 
   ADMUX = 0x60;
   ADCSRA = 0xe5;
