@@ -1,46 +1,56 @@
 #include "efeitos.h"
 
 #define LED 13
-#define FOOTSWITCH 12
 #define TOGGLE 2
 #define POTENTIOMETER A4
 #define ENCODER_CLK 3
 #define ENCODER_DT 4
-#define ENCODER_SW 5
 
-int selectedEffect = 0;
-bool effectOn = false;
+int flag = 0;
+
+int selectedEffect = 1;
 
 void setup() {
-  pinMode(FOOTSWITCH, INPUT_PULLUP);
-  pinMode(TOGGLE, INPUT_PULLUP);
+
+  pinMode(TOGGLE, INPUT);
   pinMode(LED, OUTPUT);
-  pinMode(POTENTIOMETER, INPUT_PULLUP);
+  pinMode(POTENTIOMETER, INPUT);
   pinMode(ENCODER_CLK, INPUT);
   pinMode(ENCODER_DT, INPUT);
-  pinMode(ENCODER_SW, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(ENCODER_SW), handleEncoderSwitch, FALLING);
+  // attachInterrupt(digitalPinToInterrupt(ENCODER_SW), handleEncoderSwitch, FALLING);
 
   setupEffects();  // Inicialização de todos os efeitos
+  Serial.begin(9600);
 }
 
 void loop() {
-  if (digitalRead(FOOTSWITCH)) {
+
+  if (!digitalRead(TOGGLE)) {
+
     digitalWrite(LED, HIGH);
-    if (effectOn) {
-      effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
-    }
+  // effects[selectedEffect].setupEffect();
+    // if () {
+      // effects[selectedEffect].setupEffect();
+      // effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
+    // }
   }
   else {
     digitalWrite(LED, LOW);
-    effectOn = false;
   }
 }
 
 void handleEncoderSwitch() {
+
   // Chamado quando o botão do encoder é pressionado
+  Serial.print("HandleEncoderSwitch: ");
+  flag++;
+  Serial.println(flag);
   selectedEffect = (selectedEffect + 1) % NUM_EFFECTS;  // Altera o efeito selecionado
   switchEffect(selectedEffect);                         // Atualiza o efeito selecionado
-  effectOn = true;  // Liga o efeito quando o usuário muda para um novo efeito
+}
+
+ISR(TIMER1_CAPT_vect) {
+  // Serial.println("ISR");
+  effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
 }
