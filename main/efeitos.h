@@ -2,18 +2,23 @@
 #define EFEITOS_H
 
 #include <Arduino.h>
+#include <RotaryEncoder.h>
 
-#define NUM_EFFECTS 3  // Número total de efeitos (delay, distortion e octave até então)
+#define NUM_EFFECTS 2  // Número total de efeitos
+enum {CLEAN, CHORUS, BELL};
 
-// Struct para armazenar informações sobre um efeito
+#define PWM_FREQ 0x00FF
+#define PWM_MODE 0
+#define PWM_QTY 2
+
+// Struct para armazenar um ponteiro de função para a função de processamento de cada efeito
 struct Effect {
-  void (*setupEffect)();
   void (*processEffect)();
 };
 
 extern Effect effects[NUM_EFFECTS];
 
 void setupEffects();
-void switchEffect(int effect);
+void switchEffect(int *selectedEffect);
 
 #endif

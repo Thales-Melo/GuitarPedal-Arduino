@@ -2,55 +2,53 @@
 
 #define LED 13
 #define TOGGLE 2
-#define POTENTIOMETER A4
-#define ENCODER_CLK 3
-#define ENCODER_DT 4
+#define POTENTIOMETER A5
 
+int selectedEffect = CLEAN;
+int oldEffect = 0;
 int flag = 0;
-
-int selectedEffect = 1;
 
 void setup() {
 
   pinMode(TOGGLE, INPUT);
   pinMode(LED, OUTPUT);
   pinMode(POTENTIOMETER, INPUT);
-  pinMode(ENCODER_CLK, INPUT);
-  pinMode(ENCODER_DT, INPUT);
-
-  // attachInterrupt(digitalPinToInterrupt(ENCODER_SW), handleEncoderSwitch, FALLING);
 
   setupEffects();  // Inicialização de todos os efeitos
+
   Serial.begin(9600);
 }
 
 void loop() {
 
-  if (!digitalRead(TOGGLE)) {
+  // Ao desligar e ligar novamente o pedal, o efeito selecionado é o mesmo que estava selecionado antes de desligar
 
+  // Se o toggle estiver ligado, o efeito selecionado é ativado
+  // Led acende para indicar que o efeito está ativado
+  if (!digitalRead(TOGGLE)) {
     digitalWrite(LED, HIGH);
-  // effects[selectedEffect].setupEffect();
-    // if () {
-      // effects[selectedEffect].setupEffect();
-      // effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
-    // }
+    if(flag){
+      selectedEffect = oldEffect;
+      flag = 0;
+    }
   }
+
+  // Se o toggle estiver desligado, o efeito é desativado e o clean (efeito padrão) é ativado
+  // Led apaga para indicar que o efeito está desativado
   else {
     digitalWrite(LED, LOW);
+    if(!flag){
+      oldEffect = selectedEffect;
+      selectedEffect = CLEAN;
+      flag = 1;
+    }
   }
+
+  switchEffect(&selectedEffect);
 }
 
-void handleEncoderSwitch() {
 
-  // Chamado quando o botão do encoder é pressionado
-  Serial.print("HandleEncoderSwitch: ");
-  flag++;
-  Serial.println(flag);
-  selectedEffect = (selectedEffect + 1) % NUM_EFFECTS;  // Altera o efeito selecionado
-  switchEffect(selectedEffect);                         // Atualiza o efeito selecionado
-}
-
+// Interrupção que chama a função de processamento do efeito selecionado
 ISR(TIMER1_CAPT_vect) {
-  // Serial.println("ISR");
-  effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
+    effects[selectedEffect].processEffect(); // Chama a função de processamento do efeito atual
 }
