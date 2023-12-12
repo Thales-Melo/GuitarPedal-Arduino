@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 
-void setupClean();
-
 void processClean();
 
 #endif
