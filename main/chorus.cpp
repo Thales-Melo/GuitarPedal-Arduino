@@ -1,7 +1,5 @@
 #include "chorus.h"
 
-/* Based on the "CHORUS for Stompshield" adapted from pedal shield, and reconverted for pedalSHIELD UNO*/
- 
 //defining harware resources.
 #define LED 13
 #define FOOTSWITCH 12
@@ -23,7 +21,6 @@
 #define MIN_DELAY 200
 
 uint16_t* sDelayBuffer0 = NULL;
-// uint16_t* sDelayBuffer1 = NULL;
 unsigned int DelayCounter = 5;
 unsigned int Delay_Depth = 25;
 unsigned int count_up=1;
