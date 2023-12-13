@@ -1,4 +1,4 @@
-![image](https://github.com/Thales-Melo/GuitarPedal-Arduino/assets/85687910/639947c5-88e2-41b4-b6c4-954be3635419)# GuitarPedal-Arduino
+# GuitarPedal-Arduino
 
 • Pedaleira de Guitarra com Arduíno
 
