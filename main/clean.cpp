@@ -15,6 +15,8 @@ byte clean_ADC_low, clean_ADC_high;
 void processClean() {
   // get ADC data
     
+  // Serial.println("CLEAN");
+
     clean_ADC_low = ADCL; // you need to fetch the low byte first
     clean_ADC_high = ADCH;
     //construct the input sumple summing the ADC low and high byte.

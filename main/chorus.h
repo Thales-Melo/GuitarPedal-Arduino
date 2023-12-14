@@ -4,7 +4,8 @@
 #include <Arduino.h>
 
 void processChorus();
-void checkButton();
+void checkPotentiometer();
+// void checkButton();
 void destroy_chorus();
 
 #endif

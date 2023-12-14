@@ -1,12 +1,16 @@
 #include "efeitos.h"
 #include "clean.h"
 #include "chorus.h"
-// #include "bell_shifter.h"
+#include "tremolo.h"
+#include "UpDown.h"
+#include "distortion.h"
 
 Effect effects[NUM_EFFECTS] = {
   {processClean},
-  {processChorus}
-  // {processBellShifter}
+  {processChorus},
+  {processDistortion},
+  {processTremolo},
+  {processUpDown}
 };
 
 void setupEffects() {
@@ -32,30 +36,27 @@ int valor = 0;
 int newPos = 0;
 
 void switchEffect(int *selectedEffect) {
-
   static int pos = 0;
   encoder.tick();
-  int newPos = encoder.getPosition();
+  long newPos = encoder.getPosition();
 
   if (pos != newPos) {
+    // Funcoes de desalocacao
+    delay(10);
+    destroy_chorus();
+    delay(10);
+    destroy_UpDown();
+    delay(10);
 
-    //Seleciona novo efeito na ordem
-    //Checando tambem se ultrapassa o indice de efeitos, caso sim, joga a selecao pra extremidade oposta
-    *selectedEffect = (newPos) % NUM_EFFECTS;
-    if(*selectedEffect < 0){
-      *selectedEffect *= -1;
-    }
+    // Seleciona novo efeito na ordem
+    *selectedEffect = (newPos + NUM_EFFECTS) % NUM_EFFECTS;
 
-    //debug
-    // Serial.println(newPos);
-    // Serial.println(*selectedEffect);
-    // Serial.println();
+    // Debug
+    Serial.println(newPos);
+    Serial.println(*selectedEffect);
+    Serial.println();
 
     pos = newPos;
-    
-    //Funcoes de desalocacao
-    destroy_chorus();
-    // destroy_bell_shifter();
   }
-  
 }
+
